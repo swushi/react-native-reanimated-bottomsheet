@@ -21,6 +21,8 @@ const BottomSheetComponet = forwardRef<BottomSheet, BottomSheetProps>(
       children,
       snapPoints: _providedSnapPoints = DEFAULT_SNAP_POINTS,
       springConfig = DEFAULT_SPRING_CONFIG,
+      grabber = true,
+      grabberColor = 'grey',
     } = props;
     const [containerHeight, setContainerHeight] = useState(0);
 
@@ -71,16 +73,15 @@ const BottomSheetComponet = forwardRef<BottomSheet, BottomSheetProps>(
         bottom: 0,
         left: 0,
         right: 0,
-        borderTopStartRadius: 30,
-        borderTopEndRadius: 30,
-        overflow: 'hidden',
       },
-      gutter: {
-        height: 100,
+      topBar: {
+        backgroundColor: grabberColor,
+        height: 5,
+        width: 40,
+        borderRadius: 30,
         position: 'absolute',
-        bottom: -100,
-        left: 0,
-        right: 0,
+        top: 5,
+        alignSelf: 'center',
       },
     });
 
@@ -103,8 +104,10 @@ const BottomSheetComponet = forwardRef<BottomSheet, BottomSheetProps>(
 
     return (
       <Animated.View style={[styles.container, animatedStyles]}>
-        <View onLayout={handleOnLayout}>{children}</View>
-        <View style={styles.gutter} />
+        <View onLayout={handleOnLayout}>
+          {children}
+          {grabber && <View style={styles.topBar} />}
+        </View>
       </Animated.View>
     );
   }

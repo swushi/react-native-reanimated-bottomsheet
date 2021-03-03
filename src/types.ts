@@ -14,6 +14,18 @@ export interface BottomSheetProps {
    * @type Animated.SpringConfig
    */
   springConfig?: Animated.WithSpringConfig;
+  /**
+   * Enable generic grabber at top of BottomSheet.
+   * @type Boolean
+   * @default false
+   */
+  grabber?: Boolean;
+  /**
+   * Background color of the grabber.
+   * @type string
+   * @default "grey"
+   */
+  grabberColor?: string;
   children: (() => React.ReactNode) | React.ReactNode[] | React.ReactNode;
 }
 
