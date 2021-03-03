@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import ReanimatedBottomsheet from 'react-native-reanimated-bottomsheet';
+import BottomSheet from 'react-native-reanimated-bottomsheet';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
-    ReanimatedBottomsheet.multiply(3, 7).then(setResult);
+    BottomSheet.multiply(3, 7).then(setResult);
   }, []);
 
   return (
