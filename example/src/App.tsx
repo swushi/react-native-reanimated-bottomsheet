@@ -1,18 +1,50 @@
-import * as React from 'react';
-
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useRef } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import BottomSheet from 'react-native-reanimated-bottomsheet';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+const Button = ({ label, onPress }: { label: string; onPress: any }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.button}>
+      <Text style={styles.buttonText}>{label}</Text>
+    </TouchableOpacity>
+  );
+};
 
-  React.useEffect(() => {
-    BottomSheet.multiply(3, 7).then(setResult);
-  }, []);
+export default function App() {
+  // refs
+  const bottomsheetRef = useRef<BottomSheet>(null);
+
+  const expand = () => {
+    bottomsheetRef.current?.expand();
+  };
+
+  const dismiss = () => {
+    bottomsheetRef.current?.dismiss();
+  };
+
+  const collapse = () => {
+    bottomsheetRef.current?.collapse();
+  };
+
+  const snapTo = (index: number) => {
+    bottomsheetRef.current?.snapTo(index);
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Button label="Open to 100%" onPress={expand} />
+      <Button label="Open to 75%" onPress={() => snapTo(2)} />
+      <Button label="Open to 50%" onPress={() => snapTo(1)} />
+      <Button label="Close to 25%" onPress={collapse} />
+      <Button label="Close to 0%" onPress={dismiss} />
+      <BottomSheet
+        ref={bottomsheetRef}
+        snapPoints={['25%', '50%', '75%', '100%']}
+      >
+        <View style={styles.sheetContainer}>
+          <Text>Im the bottom sheet!</Text>
+        </View>
+      </BottomSheet>
     </View>
   );
 }
@@ -20,12 +52,24 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 50,
+  },
+  button: {
+    borderRadius: 12,
+    backgroundColor: 'skyblue',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 8,
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  buttonText: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  sheetContainer: {
+    height: 350,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3f3f3f',
   },
 });
