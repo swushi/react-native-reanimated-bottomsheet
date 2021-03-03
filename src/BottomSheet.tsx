@@ -10,7 +10,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import { DEFAULT_SPRING_CONFIG } from './Constants';
+import { DEFAULT_SPRING_CONFIG, DEFAULT_SNAP_POINTS } from './Constants';
 import { useNormalizedSnapPoints } from './hooks';
 import { BottomSheetMethods, BottomSheetProps } from './types';
 
@@ -19,7 +19,7 @@ const BottomSheetComponet = forwardRef<BottomSheet, BottomSheetProps>(
   (props, ref) => {
     const {
       children,
-      snapPoints: _providedSnapPoints,
+      snapPoints: _providedSnapPoints = DEFAULT_SNAP_POINTS,
       springConfig = DEFAULT_SPRING_CONFIG,
     } = props;
     const [containerHeight, setContainerHeight] = useState(0);
@@ -33,7 +33,13 @@ const BottomSheetComponet = forwardRef<BottomSheet, BottomSheetProps>(
     );
 
     const snapTo = (index: number) => {
-      translation.value = withSpring(snapPoints[index], springConfig);
+      if (index < snapPoints.length) {
+        translation.value = withSpring(snapPoints[index], springConfig);
+      } else {
+        console.warn(
+          `snapTo index must be between 0 and ${snapPoints.length - 1}`
+        );
+      }
     };
 
     const expand = () => {

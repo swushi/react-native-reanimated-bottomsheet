@@ -37,10 +37,7 @@ export default function App() {
       <Button label="Open to 50%" onPress={() => snapTo(1)} />
       <Button label="Close to 25%" onPress={collapse} />
       <Button label="Close to 0%" onPress={dismiss} />
-      <BottomSheet
-        ref={bottomsheetRef}
-        snapPoints={['25%', '50%', '75%', '100%']}
-      >
+      <BottomSheet ref={bottomsheetRef}>
         <View style={styles.sheetContainer}>
           <Text>Im the bottom sheet!</Text>
         </View>

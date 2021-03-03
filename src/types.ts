@@ -7,7 +7,7 @@ export interface BottomSheetProps {
    * string or mix.
    * @type Array<number>
    */
-  snapPoints: Array<string>;
+  snapPoints?: Array<string>;
 
   /**
    * Spring Config for BottomSheet

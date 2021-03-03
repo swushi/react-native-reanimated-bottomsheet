@@ -8,3 +8,5 @@ export const DEFAULT_SPRING_CONFIG: Animated.WithSpringConfig = {
   restDisplacementThreshold: 0.001,
   restSpeedThreshold: 0.001,
 };
+
+export const DEFAULT_SNAP_POINTS: Array<string> = ['0%', '100%'];
