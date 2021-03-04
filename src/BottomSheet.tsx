@@ -5,7 +5,9 @@ import React, {
   useState,
 } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
+  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -67,6 +69,27 @@ const BottomSheetComponet = forwardRef<BottomSheet, BottomSheetProps>(
       []
     );
 
+    const gestureHandler = useAnimatedGestureHandler({
+      onFail: (event) => {
+        console.log(event);
+      },
+      onStart: (event) => {
+        console.log(event);
+      },
+      onCancel: (event) => {
+        console.log(event);
+      },
+      onActive: (event) => {
+        console.log(event);
+      },
+      onEnd: (event) => {
+        console.log(event);
+      },
+      onFinish: (event) => {
+        console.log(event);
+      },
+    });
+
     const styles = StyleSheet.create({
       container: {
         position: 'absolute',
@@ -103,12 +126,14 @@ const BottomSheetComponet = forwardRef<BottomSheet, BottomSheetProps>(
     }));
 
     return (
-      <Animated.View style={[styles.container, animatedStyles]}>
-        <View onLayout={handleOnLayout}>
-          {children}
-          {grabber && <View style={styles.topBar} />}
-        </View>
-      </Animated.View>
+      <PanGestureHandler onGestureEvent={gestureHandler}>
+        <Animated.View style={[styles.container, animatedStyles]}>
+          <View onLayout={handleOnLayout}>
+            {children}
+            {grabber && <View style={styles.topBar} />}
+          </View>
+        </Animated.View>
+      </PanGestureHandler>
     );
   }
 );

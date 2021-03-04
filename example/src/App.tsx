@@ -38,7 +38,7 @@ export default function App() {
       <Button label="Close to 25%" onPress={collapse} />
       <Button label="Close to 0%" onPress={dismiss} />
       <BottomSheet ref={bottomsheetRef}>
-        <View style={styles.sheetContainer}>
+        <View style={styles.sheetContainer} pointerEvents="none">
           <Text>Im the bottom sheet!</Text>
         </View>
       </BottomSheet>
